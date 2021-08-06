@@ -24,7 +24,7 @@ class SongDetail(APIView):
         song = Song.objects.get(pk=id)
         if song:
             serializer = SongSerializer(song)
-            return Response(serializer.data)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     def put(self, request, id):
