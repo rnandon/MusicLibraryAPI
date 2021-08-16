@@ -29,10 +29,12 @@ class SongDetail(APIView):
 
     def put(self, request, id):
         song = Song.objects.get(pk=id)
-        if song:
-            serializer = SongSerializer(song, data=request.data)
+        serializer = SongSerializer(song, data=request.data)
+        if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            print(serializer.errors)
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     def delete(self, request, id):
